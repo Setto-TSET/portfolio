@@ -12,7 +12,7 @@ const thai = IBM_Plex_Sans_Thai({ variable: "--font-thai", subsets: ["thai", "la
 
 export const metadata: Metadata = {
   title: { default: `${site.name} · Portfolio`, template: `%s · ${site.name}` },
-  description: "ผลงาน โปรเจกต์ และเรื่องราวของนักพัฒนาสายจันทราและเงา",
+  description: "ผลงานและโปรเจกต์ของ Setthawat Phomkaew นักศึกษาวิศวกรรมคอมพิวเตอร์สาย Full-Stack",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

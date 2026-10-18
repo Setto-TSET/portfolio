@@ -49,8 +49,8 @@ export default function Hero() {
           <motion.span className="serif" {...surface(0.58)}>building in moonlight.</motion.span>
         </h1>
         <motion.p className="lead" {...rise(0.85)}>
-          นักพัฒนาที่ชอบความสงบ สร้างเว็บและระบบที่ใช้งานง่าย ตั้งแต่ระบบจองห้องประชุมไปจนถึง mockup สำหรับองค์กร
-          ไม่ต้องสมบูรณ์แบบ แค่ทำให้ดีที่สุดในแบบของตัวเอง
+          นักศึกษาวิศวกรรมคอมพิวเตอร์ปี 3 สาย Full-Stack ใช้ React, Node.js และ Python สร้างเว็บและระบบที่ใช้งานง่าย
+          ตั้งแต่ระบบจองห้องพักไปจนถึงระบบจองห้องประชุม
         </motion.p>
         <motion.div className="btns" {...rise(1)}>
           <Link className="btn dark" href="/projects">ดูผลงาน →</Link>

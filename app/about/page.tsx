@@ -1,22 +1,30 @@
 import type { Metadata } from "next";
 import { Reveal } from "@/components/Motion";
-import Timeline, { SkillBars } from "@/components/Timeline";
+import Timeline from "@/components/Timeline";
 
 export const metadata: Metadata = { title: "เกี่ยวกับ" };
 
-// TODO: replace with your real story
 const STORY = [
-  { when: "2026 · ตอนนี้", icon: "☾", title: "e-Meeting System", text: "พัฒนา prototype ระบบบริหารการประชุมและจองห้องประชุมด้วย Next.js + TypeScript" },
-  { when: "2026 · ฝึกงาน", icon: "◎", title: "ระบบแจ้งเบาะแส", text: "ช่วยพัฒนาระบบรับแจ้งเบาะแสออนไลน์สำหรับองค์กร" },
-  { when: "2025", icon: "◆", title: "Blockchain Certificate", text: "ทำระบบออกและตรวจสอบใบรับรองบน blockchain" },
-  { when: "เริ่มต้น", icon: "🐾", title: "เริ่มเขียนโค้ด", text: "หลงรักการสร้างสิ่งที่คนใช้ได้จริง ตั้งแต่บรรทัดแรก" },
+  { when: "2026", icon: "☾", title: "e-Meeting System", text: "พัฒนา prototype ระบบบริหารการประชุมและจองห้องประชุมด้วย Next.js + TypeScript" },
+  { when: "โปรเจกต์มหาวิทยาลัย", icon: "◎", title: "Satisfaction Survey System", text: "เว็บแอปเก็บแบบสอบถามความพึงพอใจ React.js (frontend) + Node.js (backend) ออกแบบ schema MySQL และปรับ UX/UI ให้ใช้ง่ายขึ้น" },
+  { when: "โปรเจกต์มหาวิทยาลัย", icon: "◆", title: "Hotel Booking Management System", text: "เว็บแอป full-stack สำหรับจองห้องพักด้วย PHP + MySQL หน้าจอ responsive ด้วย HTML/CSS ทำงานร่วมกันเป็นทีม" },
+  { when: "2023 · ปัจจุบัน", icon: "✦", title: "มหาวิทยาลัยเทคโนโลยีราชมงคลล้านนา ตาก", text: "วิศวกรรมคอมพิวเตอร์ ชั้นปีที่ 3" },
+  { when: "มี.ค. – มิ.ย. 2023", icon: "◇", title: "Part-time · 7-Eleven", text: "ฝึกความรับผิดชอบ ตรงต่อเวลา และงานบริการลูกค้าในสภาพแวดล้อมที่เร่งรีบ" },
+  { when: "2016 – 2022", icon: "🐾", title: "โรงเรียนโกสัมพีวิทยา", text: "สายวิทย์-คณิต" },
+];
+
+const SKILLS = [
+  { i: "⌘", t: "Languages", d: "Python, JavaScript (ES6+), Java, C, SQL, PHP, HTML5, CSS3" },
+  { i: "◎", t: "Web Development", d: "React.js, Node.js, Tailwind CSS, Bootstrap" },
+  { i: "◆", t: "Data Science", d: "NumPy, Matplotlib, Scikit-learn" },
+  { i: "☾", t: "Database & Tools", d: "MySQL, VS Code, PyCharm" },
 ];
 
 const FACTS = [
-  { i: "✦", t: "ชอบความสงบ", d: "โฟกัสงานได้นาน ทำงานคนเดียวได้ดี แต่ก็สนุกกับการทำงานเป็นทีม" },
-  { i: "☾", t: "สายกลางคืน", d: "ไอเดียดี ๆ มักมาตอนดึก (และ bug ก็เช่นกัน)" },
+  { i: "✦", t: "จัดการเวลาได้ดี", d: "วางแผนงานเป็นขั้นตอน ส่งงานตรงเวลา" },
   { i: "◎", t: "เรียนรู้ไม่หยุด", d: "ชอบลองเทคโนโลยีใหม่ แล้วเอามาใช้กับงานจริง" },
-  { i: "🐾", t: "ทาสแมว", d: "มีผู้ช่วยเป็นแมวดำ ลองกดที่แมวบนแถบด้านบนดูสิ" },
+  { i: "◆", t: "แก้ปัญหาเป็นระบบ", d: "ค่อย ๆ ไล่หาต้นเหตุ ไม่แก้แค่ปลายเหตุ" },
+  { i: "🐾", t: "ทำงานเป็นทีม", d: "สื่อสารชัดเจน ภาษาไทย (เจ้าของภาษา) และอังกฤษ (ใช้งานได้)" },
 ];
 
 export default function About() {
@@ -26,15 +34,21 @@ export default function About() {
         <div className="wrap">
           <Reveal><p className="eyebrow">About me</p></Reveal>
           <Reveal delay={0.08}><h2>เรื่องราวของฉัน, <span className="serif">so far.</span></h2></Reveal>
-          <Reveal delay={0.16}><p className="lead">นักพัฒนาที่ชอบความสงบ สนใจทั้งงานหน้าบ้านและหลังบ้าน เส้นทางที่ผ่านมาสรุปไว้ตรงนี้</p></Reveal>
+          <Reveal delay={0.16}>
+            <p className="lead">นักศึกษาวิศวกรรมคอมพิวเตอร์ชั้นปีที่ 3 ที่สนใจ Full-Stack Web Development ด้วย React, Node.js และ Python อยู่ที่กำแพงเพชร พร้อมใช้ทักษะในงานฝึกงานที่ท้าทายและช่วยให้ทีมสำเร็จ</p>
+          </Reveal>
           <Timeline items={STORY} />
         </div>
       </section>
       <section className="tint">
         <div className="wrap">
           <Reveal><p className="eyebrow">Skills</p></Reveal>
-          <Reveal delay={0.08}><h2>ระดับความถนัด</h2></Reveal>
-          <SkillBars items={[["TypeScript", 80], ["Next.js / React", 75], ["CSS & Motion", 70], ["Node.js / API", 60], ["UI Design", 65]]} />
+          <Reveal delay={0.08}><h2>เครื่องมือที่ใช้</h2></Reveal>
+          <div className="facts">
+            {SKILLS.map((f, i) => (
+              <Reveal key={f.t} delay={i * 0.1}><h3><span>{f.i}</span>{f.t}</h3><p>{f.d}</p></Reveal>
+            ))}
+          </div>
         </div>
       </section>
       <section>

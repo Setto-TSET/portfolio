@@ -28,18 +28,3 @@ export default function Timeline({ items }: { items: Item[] }) {
   );
 }
 
-export function SkillBars({ items }: { items: [string, number][] }) {
-  return (
-    <div className="skillbars">
-      {items.map(([name, pct], i) => (
-        <div key={name}>
-          <div className="row"><span>{name}</span><span>{pct}%</span></div>
-          <div className="track">
-            <motion.div className="fill" style={{ width: `${pct}%` }} initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }}
-              viewport={{ once: true }} transition={{ duration: 1, delay: i * 0.1, ease: "easeOut" }} />
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}

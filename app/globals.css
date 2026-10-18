@@ -249,10 +249,6 @@ section { padding: 96px 0; }
 .facts h3 { font-size: 1rem; font-weight: 600; margin: 0 0 6px; display: flex; gap: 8px; align-items: center; }
 .facts h3 span { color: var(--violet-2); }
 .facts p { color: var(--ink-soft); font-size: 0.93rem; margin: 0; }
-.skillbars { display: grid; gap: 18px; margin-top: 36px; max-width: 640px; }
-.skillbars .row { display: flex; justify-content: space-between; font-size: 0.92rem; margin-bottom: 6px; }
-.skillbars .track { height: 8px; border-radius: 999px; background: var(--line); overflow: hidden; }
-.skillbars .fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--violet-2), var(--violet)); transform-origin: left; }
 
 /* ---------- playground ---------- */
 .play { position: relative; height: 100svh; background: radial-gradient(ellipse at 50% 120%, #2b2347, #0b0a10 70%); color: #eeeaf7; overflow: hidden; }
