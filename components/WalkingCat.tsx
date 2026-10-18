@@ -18,7 +18,18 @@ export default function WalkingCat() {
   const [pets, setPets] = useState(0);
   const [hops, setHops] = useState(0);
   const [say, setSay] = useState<string | null>(null);
-  const pet = () => {
+  const pet = (e: React.MouseEvent) => {
+    // The cat walks over the page, so it must never swallow a click meant for a control underneath.
+    // e.detail === 0 means keyboard activation: that is always aimed at the cat.
+    if (e.detail > 0) {
+      const under = document.elementsFromPoint(e.clientX, e.clientY).find((el) => !wrap.current?.contains(el));
+      const control = under?.closest<HTMLElement>("a, button, input, textarea, select, label, [role='button']");
+      if (control) {
+        control.focus();
+        control.click();
+        return;
+      }
+    }
     setHops((h) => h + 1);
     const n = pets + 1;
     if (n >= 5) { setPets(0); setSay(null); openEgg(); return; }

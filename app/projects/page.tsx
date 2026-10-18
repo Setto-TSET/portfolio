@@ -34,7 +34,7 @@ export default function ProjectsPage() {
     <section className="page-top">
       <div className="wrap">
         <Reveal><p className="eyebrow">Projects</p></Reveal>
-        <Reveal delay={0.08}><h2>ผลงานทั้งหมด <span className="serif">and still growing.</span></h2></Reveal>
+        <Reveal delay={0.08}><h1 className="title">ผลงานทั้งหมด <span className="serif">and still growing.</span></h1></Reveal>
         <Reveal delay={0.16}><p className="lead">ทุกโปรเจกต์ public บน GitHub กรองตามภาษา แล้วกดการ์ดเพื่อดูรายละเอียด</p></Reveal>
         <Suspense fallback={<div className="grid"><div className="skeleton" /><div className="skeleton" /><div className="skeleton" /></div>}>
           <Projects />

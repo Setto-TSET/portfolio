@@ -33,7 +33,7 @@ export default function About() {
       <section className="page-top">
         <div className="wrap">
           <Reveal><p className="eyebrow">About me</p></Reveal>
-          <Reveal delay={0.08}><h2>เรื่องราวของฉัน, <span className="serif">so far.</span></h2></Reveal>
+          <Reveal delay={0.08}><h1 className="title">เรื่องราวของฉัน, <span className="serif">so far.</span></h1></Reveal>
           <Reveal delay={0.16}>
             <p className="lead">นักศึกษาวิศวกรรมคอมพิวเตอร์ชั้นปีที่ 3 ที่สนใจ Full-Stack Web Development ด้วย React, Node.js และ Python อยู่ที่กำแพงเพชร พร้อมใช้ทักษะในงานฝึกงานที่ท้าทายและช่วยให้ทีมสำเร็จ</p>
           </Reveal>

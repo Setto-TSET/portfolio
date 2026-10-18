@@ -12,9 +12,16 @@ export async function generateStaticParams() {
   return repos.length ? repos.map((r) => ({ repo: r.name })) : [{ repo: "emeeting-system" }];
 }
 
+// Validation happens before streaming (see RepoPage), so this route can't be an instant navigation.
+export const instant = false;
+
+async function exists(name: string) {
+  return (await getRepos()).some((r) => r.name === name);
+}
+
 export async function generateMetadata({ params }: PageProps<"/projects/[repo]">): Promise<Metadata> {
   const { repo } = await params;
-  return { title: prettyName(repo) };
+  return { title: (await exists(repo)) ? prettyName(repo) : "ไม่พบผลงาน" };
 }
 
 async function Detail({ params }: { params: Promise<{ repo: string }> }) {
@@ -36,7 +43,7 @@ async function Detail({ params }: { params: Promise<{ repo: string }> }) {
 
       <div className="detail-grid">
         <Reveal className="readme" delay={0.1}>
-          {readme ? <div dangerouslySetInnerHTML={{ __html: readme }} /> : <p>repo นี้ยังไม่มี README</p>}
+          {readme ? <div dangerouslySetInnerHTML={{ __html: readme.replace(/<(\/?)h1\b/g, "<$1h2") }} /> : <p>repo นี้ยังไม่มี README</p>}
         </Reveal>
         <aside className="side">
           <Reveal className="box" delay={0.2}>
@@ -65,7 +72,9 @@ async function Detail({ params }: { params: Promise<{ repo: string }> }) {
   );
 }
 
-export default function RepoPage({ params }: PageProps<"/projects/[repo]">) {
+export default async function RepoPage({ params }: PageProps<"/projects/[repo]">) {
+  // Checked before the Suspense boundary starts streaming, so unknown repos get a real 404 status.
+  if (!(await exists((await params).repo))) notFound();
   return (
     <section className="page-top">
       <div className="wrap">
