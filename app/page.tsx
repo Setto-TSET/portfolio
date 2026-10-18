@@ -14,7 +14,7 @@ async function Featured() {
 const SKILLS = [
   { t: "Frontend", d: "Next.js, React, TypeScript, CSS", code: <><span className="k">const</span> me = {"{"}<br />&nbsp;&nbsp;stack: [<span className="s">&quot;Next.js&quot;</span>, <span className="s">&quot;TS&quot;</span>],<br />&nbsp;&nbsp;mood: <span className="s">&quot;calm&quot;</span><br />{"}"}</> },
   { t: "Backend", d: "Node.js, REST API, Database", code: <><span className="c">{"// GET /api/meetings"}</span><br />app.<span className="k">get</span>(<span className="s">&quot;/api&quot;</span>, handler)<br /><span className="c">{"// 200 OK · 12ms"}</span></> },
-  { t: "UI / Prototype", d: "Mockup, Figma, Vercel", code: <><span className="k">deploy</span> nexus-mockup<br /><span className="c">{"// ✓ ready on vercel.app"}</span><br /><span className="c">{"// ✦ looks good"}</span></> },
+  { t: "UI / Prototype", d: "Mockup, Figma, Vercel", code: <><span className="k">deploy</span> portfolio<br /><span className="c">{"// ✓ ready on vercel.app"}</span><br /><span className="c">{"// ✦ looks good"}</span></> },
 ];
 
 const EXPLORE = [

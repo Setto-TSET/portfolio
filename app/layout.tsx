@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { IBM_Plex_Sans_Thai, Instrument_Sans, Instrument_Serif } from "next/font/google";
 import { MotionConfig } from "motion/react";
 import { EggProvider, Footer, TopBar, themeScript } from "@/components/Chrome";
+import WalkingCat from "@/components/WalkingCat";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <TopBar />
             <main>{children}</main>
             <Footer />
+            <WalkingCat />
           </EggProvider>
         </MotionConfig>
       </body>

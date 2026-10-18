@@ -1,9 +1,9 @@
 // Edit these to make the site yours.
 export const site = {
-  name: "SETT-TSET",
+  name: "Setthawat Phomkaew",
   role: "Developer",
   github: "Setto-TSET",
-  email: "you@example.com", // TODO: real contact email
+  email: "setthawat.phomkaew@gmail.com",
   linkedin: "", // TODO: LinkedIn URL, leave empty to hide
 };
 

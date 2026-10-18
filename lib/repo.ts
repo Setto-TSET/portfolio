@@ -17,9 +17,10 @@ export type Repo = {
 export type Commit = { sha: string; html_url: string; commit: { message: string; author: { date: string } } };
 
 // Thai descriptions that override (or fill in) the GitHub description.
-export const NOTES: Record<string, string> = {
-  Nexus_Mockup_V2: "mockup ระบบ Nexus ที่ทำช่วงฝึกงาน ออกแบบ UI และ deploy บน Vercel",
-};
+export const NOTES: Record<string, string> = {};
+
+// Repos kept off the site even though they are public on GitHub.
+export const HIDDEN = new Set(["Nexus_Mockup_V2"]);
 
 export const LANG_COLOR: Record<string, string> = {
   TypeScript: "#3178c6", JavaScript: "#f1e05a", Python: "#3572A5", HTML: "#e34c26", CSS: "#563d7c",

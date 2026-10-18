@@ -55,7 +55,8 @@ export default function ProjectGrid({ repos }: { repos: Repo[] }) {
       <motion.div className="grid" layout>
         <AnimatePresence mode="popLayout">
           {shown.map((r, i) => (
-            <motion.div key={r.name} layout initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }}>
+            <motion.div key={r.name} layout initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.96, transition: { duration: 0.15 } }} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}>
               <RepoCard r={r} i={i} />
             </motion.div>
           ))}

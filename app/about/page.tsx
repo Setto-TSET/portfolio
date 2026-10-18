@@ -7,7 +7,6 @@ export const metadata: Metadata = { title: "เกี่ยวกับ" };
 // TODO: replace with your real story
 const STORY = [
   { when: "2026 · ตอนนี้", icon: "☾", title: "e-Meeting System", text: "พัฒนา prototype ระบบบริหารการประชุมและจองห้องประชุมด้วย Next.js + TypeScript" },
-  { when: "2026 · ฝึกงาน", icon: "✦", title: "ฝึกงาน · Nexus Mockup", text: "ออกแบบและทำ mockup ระบบ Nexus แล้ว deploy บน Vercel ให้ทีมทดลองใช้" },
   { when: "2026 · ฝึกงาน", icon: "◎", title: "ระบบแจ้งเบาะแส", text: "ช่วยพัฒนาระบบรับแจ้งเบาะแสออนไลน์สำหรับองค์กร" },
   { when: "2025", icon: "◆", title: "Blockchain Certificate", text: "ทำระบบออกและตรวจสอบใบรับรองบน blockchain" },
   { when: "เริ่มต้น", icon: "🐾", title: "เริ่มเขียนโค้ด", text: "หลงรักการสร้างสิ่งที่คนใช้ได้จริง ตั้งแต่บรรทัดแรก" },

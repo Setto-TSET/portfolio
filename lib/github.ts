@@ -1,6 +1,6 @@
 import { cacheLife } from "next/cache";
 import { site } from "./site";
-import type { Commit, Repo } from "./repo";
+import { HIDDEN, type Commit, type Repo } from "./repo";
 
 export * from "./repo";
 
@@ -23,7 +23,7 @@ export async function getRepos(): Promise<Repo[]> {
   "use cache";
   cacheLife("hours");
   const list = await gh<Repo[]>(`/users/${site.github}/repos?sort=pushed&per_page=100`);
-  return (list ?? []).filter((r) => !r.fork && !r.archived);
+  return (list ?? []).filter((r) => !r.fork && !r.archived && !HIDDEN.has(r.name));
 }
 
 export async function getProfile() {
@@ -37,6 +37,7 @@ export async function getProfile() {
 export async function getRepoDetail(raw: string) {
   "use cache";
   cacheLife("hours");
+  if (HIDDEN.has(raw)) return { repo: null, languages: {}, commits: [], readme: null };
   const name = encodeURIComponent(raw);
   const [repo, languages, commits, readme] = await Promise.all([
     gh<Repo>(`/repos/${site.github}/${name}`),

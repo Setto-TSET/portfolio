@@ -3,12 +3,15 @@
 import { useEffect, useRef, useSyncExternalStore } from "react";
 import { animate, motion, useInView, useMotionTemplate, useMotionValue, useSpring } from "motion/react";
 
+/** Expo-out: fast arrival, long settle. Shared by every entrance on the site. */
+export const EASE = [0.16, 1, 0.3, 1] as const;
+
 /** Fades + lifts its children in when scrolled into view. */
 export function Reveal({ children, delay = 0, className, as = "div" }: { children: React.ReactNode; delay?: number; className?: string; as?: "div" | "p" | "h2" | "li" }) {
   const M = motion[as];
   return (
-    <M className={className} initial={{ opacity: 0, y: 28, filter: "blur(6px)" }} whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      viewport={{ once: true, margin: "0px 0px -10% 0px" }} transition={{ duration: 0.8, delay, ease: [0.2, 0.7, 0.2, 1] }}>
+    <M className={className} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "0px 0px -10% 0px" }} transition={{ duration: 0.7, delay, ease: EASE }}>
       {children}
     </M>
   );
@@ -33,9 +36,9 @@ export function Tilt({ children, className = "", max = 10, delay = 0, ...rest }:
   return (
     <motion.div className={`tilt ${className}`} style={{ rotateX: rx, rotateY: ry, transformPerspective: 900 }}
       onPointerMove={move} onPointerLeave={leave}
-      initial={{ opacity: 0, y: 40, scale: 0.96 }} whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, margin: "0px 0px -10% 0px" }} transition={{ duration: 0.8, delay, ease: [0.2, 0.7, 0.2, 1] }}
-      layout {...(rest as object)}>
+      initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "0px 0px -10% 0px" }} transition={{ duration: 0.7, delay: Math.min(delay, 0.32), ease: EASE }}
+      {...(rest as object)}>
       <motion.span className="spot" style={{ background: spot }} />
       {children}
     </motion.div>

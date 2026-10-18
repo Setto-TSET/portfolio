@@ -42,7 +42,7 @@ export function EggProvider({ children }: { children: React.ReactNode }) {
 }
 
 /* ---------- theme ---------- */
-function watchTheme(cb: () => void) {
+export function watchTheme(cb: () => void) {
   const mo = new MutationObserver(cb);
   mo.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
   return () => mo.disconnect();
@@ -50,14 +50,28 @@ function watchTheme(cb: () => void) {
 
 export function ThemeToggle() {
   const night = useSyncExternalStore(watchTheme, () => document.documentElement.dataset.theme === "night", () => false);
-  const flip = () => {
+  const flip = (e: React.MouseEvent<HTMLButtonElement>) => {
     const t = night ? "day" : "night";
-    document.documentElement.dataset.theme = t;
-    try { localStorage.theme = t; } catch {}
+    const apply = () => {
+      document.documentElement.dataset.theme = t;
+      try { localStorage.theme = t; } catch {}
+    };
+    // the new theme spreads out from the toggle, like moonlight falling over the page
+    if (!document.startViewTransition || matchMedia("(prefers-reduced-motion: reduce)").matches) return apply();
+    const r = e.currentTarget.getBoundingClientRect();
+    const x = r.left + r.width / 2, y = r.top + r.height / 2;
+    const end = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+    document.startViewTransition(apply).ready.then(() => {
+      document.documentElement.animate(
+        { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${end}px at ${x}px ${y}px)`] },
+        { duration: 650, easing: "cubic-bezier(0.16, 1, 0.3, 1)", pseudoElement: "::view-transition-new(root)" },
+      );
+    });
   };
   return (
     <button className="icon-btn" onClick={flip} aria-label="สลับธีมกลางวัน/กลางคืน">
-      <motion.span key={String(night)} initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} style={{ display: "inline-block" }}>
+      <motion.span key={String(night)} initial={{ rotate: -120, scale: 0.5, opacity: 0 }} animate={{ rotate: 0, scale: 1, opacity: 1 }}
+        transition={{ type: "spring", stiffness: 260, damping: 18 }} style={{ display: "inline-block" }}>
         {night ? "☀" : "☾"}
       </motion.span>
     </button>
@@ -101,7 +115,8 @@ export function Notch() {
       </button>
       <AnimatePresence initial={false}>
         {open && (
-          <motion.div className="panel" initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}>
+          <motion.div className="panel" initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0, transition: { duration: 0.18 } }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
             <div style={{ padding: "4px 0" }} role="status">
               <span className="status">{CAT_STATES[st][0]}</span>
               {CAT_STATES[st][1]}
@@ -110,6 +125,29 @@ export function Notch() {
         )}
       </AnimatePresence>
     </motion.div>
+  );
+}
+
+/* ---------- logo: just the cat's face, coloured by theme (black at night, Siamese by day) ---------- */
+function CatFace() {
+  return (
+    <svg className="logo-face" viewBox="0 0 64 64" aria-hidden="true">
+      <path d="M11 30 L9 6 L28 20 Z M53 30 L55 6 L36 20 Z" fill="var(--cat-point)" />
+      <path d="M15 24 L14 13 L23 20 Z M49 24 L50 13 L41 20 Z" fill="#e7b3a6" />
+      <ellipse cx="32" cy="36" rx="25" ry="22" fill="var(--cat-fur)" />
+      <ellipse cx="32" cy="39" rx="18" ry="15" fill="var(--cat-point)" opacity="var(--cat-mask)" />
+      <circle cx="22" cy="35" r="8.5" fill="#fbf4e6" />
+      <circle cx="42" cy="35" r="8.5" fill="#fbf4e6" />
+      <circle cx="22" cy="35.5" r="6" fill="var(--cat-eye)" />
+      <circle cx="42" cy="35.5" r="6" fill="var(--cat-eye)" />
+      <ellipse cx="22" cy="35.5" rx="2" ry="3.6" fill="#15131a" />
+      <ellipse cx="42" cy="35.5" rx="2" ry="3.6" fill="#15131a" />
+      <circle cx="24.5" cy="32" r="1.8" fill="#fff" />
+      <circle cx="44.5" cy="32" r="1.8" fill="#fff" />
+      <ellipse cx="13" cy="45" rx="4" ry="2.4" fill="#f29a9a" opacity=".75" />
+      <ellipse cx="51" cy="45" rx="4" ry="2.4" fill="#f29a9a" opacity=".75" />
+      <path d="M29 47 Q32 51 35 47 Z" fill="#e2667a" />
+    </svg>
   );
 }
 
@@ -122,7 +160,7 @@ export function TopBar() {
       <motion.div className="progress" style={{ scaleX }} aria-hidden="true" />
       <header className="topbar">
         <div className="wrap">
-          <Link className="logo" href="/"><span className="moon" /><span>{site.name}</span></Link>
+          <Link className="logo" href="/" aria-label={`${site.name} หน้าแรก`}><CatFace /></Link>
           <ThemeToggle />
         </div>
       </header>
