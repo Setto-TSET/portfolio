@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Sparkles, Stars } from "@react-three/drei";
 import * as THREE from "three";
@@ -63,12 +63,18 @@ function ShootingStars({ count = 3 }) {
   );
 }
 
-export default function StarField({ calm = false }: { calm?: boolean }) {
+/**
+ * `active` is false once the hero scrolls out of view: the render loop stops entirely.
+ * Reduced motion renders on demand (a still sky) instead of every frame.
+ */
+export default function StarField({ calm = false, active = true }: { calm?: boolean; active?: boolean }) {
+  const [small] = useState(() => matchMedia("(max-width: 640px)").matches);
   return (
-    <Canvas camera={{ position: [0, 0, 6], fov: 60 }} dpr={[1, 1.75]} gl={{ alpha: true, antialias: true }}>
+    <Canvas camera={{ position: [0, 0, 6], fov: 60 }} dpr={small ? [1, 1.25] : [1, 1.5]} gl={{ alpha: true, antialias: !small }}
+      frameloop={!active ? "never" : calm ? "demand" : "always"}>
       <SlowSpin>
-        <Stars radius={60} depth={40} count={2500} factor={3.2} saturation={0.4} fade speed={calm ? 0.2 : 1.2} />
-        <Sparkles count={60} scale={[16, 8, 6]} position={[0, 2, -4]} size={3} speed={calm ? 0.05 : 0.35} color="#d9cffb" />
+        <Stars radius={60} depth={40} count={small ? 1200 : 2500} factor={3.2} saturation={0.4} fade speed={calm ? 0.2 : 1.2} />
+        <Sparkles count={small ? 30 : 60} scale={[16, 8, 6]} position={[0, 2, -4]} size={3} speed={calm ? 0.05 : 0.35} color="#d9cffb" />
       </SlowSpin>
       {!calm && <ShootingStars />}
       <Rig />

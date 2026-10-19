@@ -2,7 +2,8 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
+import { useRef } from "react";
+import { motion, useInView, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
 import { site } from "@/lib/site";
 import { EASE } from "./Motion";
 
@@ -23,6 +24,8 @@ const surface = (delay: number) => ({
 
 export default function Hero() {
   const calm = useReducedMotion() ?? false;
+  const hero = useRef<HTMLDivElement>(null);
+  const onScreen = useInView(hero);
   const { scrollY } = useScroll();
   const px = useSpring(useMotionValue(0), { stiffness: 60, damping: 20 });
   // each hill layer moves at its own speed -> depth
@@ -33,8 +36,8 @@ export default function Hero() {
   const fade = useTransform(scrollY, [0, 500], [1, 0]);
 
   return (
-    <div className="hero" onPointerMove={(e) => px.set(e.clientX / innerWidth - 0.5)}>
-      <div className="canvas" aria-hidden="true"><StarField calm={calm} /></div>
+    <div className="hero" ref={hero} onPointerMove={(e) => px.set(e.clientX / innerWidth - 0.5)}>
+      <div className="canvas" aria-hidden="true"><StarField calm={calm} active={onScreen} /></div>
       <motion.div className="moon-orbit" aria-hidden="true" style={{ y: moonY, x: moonX }}>
         <motion.div className="moon-big"
           initial={{ y: 220, opacity: 0, boxShadow: "0 0 0px 0px rgba(244, 240, 255, 0)" }}

@@ -168,7 +168,8 @@ function Aim() {
 
 export default function CatScene(props: { night: boolean; calm: boolean; wrap: React.RefObject<HTMLDivElement | null>; hops: number }) {
   return (
-    <Canvas camera={{ position: [0, 1.15, 4.4], fov: 32 }} dpr={[1, 2]} gl={{ alpha: true, antialias: true }}>
+    <Canvas camera={{ position: [0, 1.15, 4.4], fov: 32 }} dpr={[1, 1.5]} gl={{ alpha: true, antialias: true }}
+      frameloop={props.calm ? "demand" : "always"}>
       <ambientLight intensity={0.9} />
       <directionalLight position={[2, 3, 4]} intensity={1.8} />
       <directionalLight position={[-3, 2, -3]} intensity={1.2} color="#b9a6ff" />

@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { usePathname } from "next/navigation";
 import { useRef, useState, useSyncExternalStore } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEgg, watchTheme } from "./Chrome";
@@ -11,6 +12,7 @@ const MEOWS = ["Meow ~", "เมี้ยว! ลูบอีกสิ", "ไป
 /** The 3D wizard cat that wanders along the bottom of every page. Pet it 5 times for the secret. */
 export default function WalkingCat() {
   const wrap = useRef<HTMLDivElement>(null);
+  const path = usePathname();
   const calm = useReducedMotion() ?? false;
   const night = useSyncExternalStore(watchTheme, () => document.documentElement.dataset.theme === "night", () => false);
 
@@ -37,6 +39,9 @@ export default function WalkingCat() {
     setSay(MEOWS[(n - 1) % MEOWS.length]);
     setTimeout(() => setSay(null), 2000);
   };
+
+  // Playground has its own cat on the moon; one WebGL scene there is enough
+  if (path === "/playground") return null;
 
   return (
     <div className="walker" ref={wrap}>
