@@ -24,13 +24,20 @@ function Star({ pos, picked, onPick, i }: { pos: THREE.Vector3; picked: boolean;
     m.current.scale.setScalar(THREE.MathUtils.lerp(m.current.scale.x, target, 0.15));
   });
   return (
-    <mesh ref={m} position={pos}
-      onClick={(e: ThreeEvent<MouseEvent>) => { e.stopPropagation(); onPick(i); }}
-      onPointerOver={(e) => { e.stopPropagation(); setHover(true); document.body.style.cursor = "pointer"; }}
-      onPointerOut={() => { setHover(false); document.body.style.cursor = ""; }}>
-      <sphereGeometry args={[0.12, 12, 12]} />
-      <meshBasicMaterial color={picked ? "#d9cffb" : "#ffffff"} toneMapped={false} />
-    </mesh>
+    <group position={pos}>
+      <mesh ref={m}>
+        <sphereGeometry args={[0.12, 12, 12]} />
+        <meshBasicMaterial color={picked ? "#d9cffb" : "#ffffff"} toneMapped={false} />
+      </mesh>
+      {/* invisible, finger-sized hit area */}
+      <mesh
+        onClick={(e: ThreeEvent<MouseEvent>) => { e.stopPropagation(); onPick(i); }}
+        onPointerOver={(e) => { e.stopPropagation(); setHover(true); document.body.style.cursor = "pointer"; }}
+        onPointerOut={() => { setHover(false); document.body.style.cursor = ""; }}>
+        <sphereGeometry args={[0.5, 8, 8]} />
+        <meshBasicMaterial transparent opacity={0} depthWrite={false} />
+      </mesh>
+    </group>
   );
 }
 

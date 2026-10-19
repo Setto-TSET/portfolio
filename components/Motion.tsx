@@ -26,6 +26,7 @@ export function Tilt({ children, className = "", max = 10, delay = 0, ...rest }:
   const spot = useMotionTemplate`radial-gradient(280px circle at ${mx}% ${my}%, rgba(139,120,196,.22), transparent 65%)`;
 
   const move = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType !== "mouse") return;
     const r = e.currentTarget.getBoundingClientRect();
     const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
     mx.set(x * 100); my.set(y * 100);

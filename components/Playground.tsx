@@ -23,7 +23,8 @@ export default function Playground() {
       <div className="hud">
         <div>
           <h1>Playground <span className="serif">under the moon.</span></h1>
-          <p>ลากเพื่อหมุนท้องฟ้า เลื่อนเพื่อซูม กดดาวทีละดวงเพื่อสร้างกลุ่มดาวของคุณเอง แล้วลองกดแมวบนพระจันทร์ดู</p>
+          <p className="long">ลากเพื่อหมุนท้องฟ้า เลื่อนเพื่อซูม กดดาวทีละดวงเพื่อสร้างกลุ่มดาวของคุณเอง แล้วลองกดแมวบนพระจันทร์ดู</p>
+          <p className="short">ลากเพื่อหมุน · แตะดาวเพื่อต่อกลุ่มดาว · แตะแมว</p>
         </div>
         <div className="btns">
           <AnimatePresence>
