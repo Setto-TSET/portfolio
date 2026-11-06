@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import { Ago, Tilt } from "./Motion";
+import Preview from "./Preview";
 import { LANG_COLOR, describe, prettyName, type Repo } from "@/lib/repo";
 
 const ICON: Record<string, string> = { TypeScript: "TS", JavaScript: "JS", Python: "Py", Solidity: "◆", HTML: "<>", CSS: "#" };
@@ -14,6 +15,7 @@ export function RepoCard({ r, i = 0 }: { r: Repo; i?: number }) {
   return (
     <Tilt delay={i * 0.08}>
       <Link className="card-link" href={`/projects/${r.name}`} aria-label={`รายละเอียด ${r.name}`} />
+      <Preview repo={r.name} />
       <div className="meta">
         <span className="ic">{ICON[lang] || "◐"}</span>
         <div><b>{prettyName(r.name)}</b><small>{lang}</small></div>

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { Ago, Reveal } from "@/components/Motion";
 import LangBar from "@/components/LangBar";
+import Preview from "@/components/Preview";
 import { describe, getRepoDetail, getRepos, prettyName } from "@/lib/github";
 
 export async function generateStaticParams() {
@@ -39,6 +40,7 @@ async function Detail({ params }: { params: Promise<{ repo: string }> }) {
         </Reveal>
       </div>
       <Reveal delay={0.15}><p className="lead" style={{ marginTop: 14 }}>{describe(repo)}</p></Reveal>
+      <Reveal delay={0.2}><Preview repo={repo.name} large /></Reveal>
       <LangBar languages={languages} />
 
       <div className="detail-grid">
